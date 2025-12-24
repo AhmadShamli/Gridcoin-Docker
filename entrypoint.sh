@@ -1,9 +1,10 @@
 #!/bin/bash
 set -e
 
-CONF_DIR="/home/grc/.GridcoinResearch"
+CONF_DIR="/root/.GridcoinResearch"
 CFG_FILE="$CONF_DIR/gridcoinresearch.conf"
-ROOT_CFG="/root/.GridcoinResearch/gridcoinresearch.conf"
+
+cat /home/grc/.GridcoinResearch/gridcoinresearch.conf > ${CFG_FILE}
 
 if [ "$1" = 'gridcoinresearchd' ]; then
     mkdir -p "$CONF_DIR"
@@ -18,11 +19,9 @@ if [ "$1" = 'gridcoinresearchd' ]; then
         echo "printtoconsole=1" >> "${CFG_FILE}"
     fi
 
-    # Copy config to root
-    cp "${CFG_FILE}" "${ROOT_CFG}"
     # Fix chown syntax warning (use grc:grc) and permissions
     chmod 0600 "${CFG_FILE}"
-    chown -R grc:grc /home/grc
+    chown -R grc:grc "${CONF_DIR}"
 
     # Execute the daemon using the absolute path to fix "not found in $PATH" error
     exec gosu grc:grc /usr/bin/gridcoinresearchd "$@"

@@ -13,19 +13,15 @@ services:
       - "32749:32749"  # Gridcoin mainnet port
     volumes:
       # Blockchain data directory
-      - ./blockchain:/home/grc
+      - ./blockchain:/root/.GridcoinResearch
       # Gridcoin configuration file
       - ./gridcoinresearch.conf:/home/grc/.GridcoinResearch/gridcoinresearch.conf:ro
-    environment:
-      # Optional: Set custom RPC credentials
-      - GRIDCOIN_RPC_USER=grc_user
-      - GRIDCOIN_RPC_PASS=grc_pass
     # Optional: Configure logging
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "5"
+    #logging:
+    #  driver: "json-file"
+    #  options:
+    #    max-size: "10m"
+    #    max-file: "5"
     # Uncomment to allocate a pseudo-TTY and keep container running
     # stdin_open: true
     # tty: true

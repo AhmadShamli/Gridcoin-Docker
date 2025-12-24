@@ -63,5 +63,5 @@ RUN if [ -n "$GRIDCOIN_DEB_URL" ]; then \
     fi
 
 
-WORKDIR /home/grc
-VOLUME ["/home/grc"]
+WORKDIR /root/.GridcoinResearch
+VOLUME ["/root/.GridcoinResearch"]

@@ -4,10 +4,13 @@
 # =============================================================================
 # BASIC REQUIRED SETTINGS
 # =============================================================================
-
+debug=1
 # Enable listening for incoming connections
 listen=1
 
+# Enable staking
+#investor=1
+#staking=1
 # Enable server mode (allows RPC connections)
 server=1
 
@@ -16,7 +19,7 @@ server=1
 daemon=0
 
 # Print output to console (recommended for Docker)
-printtoconsole=1
+#printtoconsole=1
 
 # =============================================================================
 # RPC CONFIGURATION
@@ -27,8 +30,8 @@ printtoconsole=1
 rpcuser=your_rpc_username_here
 rpcpassword=your_secure_rpc_password_here
 
-# RPC port (default: 32749)
-rpcport=32749
+# RPC port (default: 15715)
+rpcport=15715
 
 # Allow RPC connections from localhost only (more secure)
 # rpcallowip=127.0.0.1
@@ -75,7 +78,12 @@ port=32749
 # Add nodes manually if having connection issues:
 # addnode=node.gridcoin.us
 # addnode=node2.gridcoin.us
-
+addnode=addnode-us-central.cycy.me
+addnode=ec2-3-81-39-58.compute-1.amazonaws.com
+addnode=gridcoin.network
+addnode=seeds.gridcoin.ifoggz-network.xyz
+addnode=seed.gridcoin.pl
+addnode=www.grcpool.com
 # Proxy settings (if needed)
 # proxy=127.0.0.1:9050
 
@@ -86,8 +94,6 @@ port=32749
 # Log timestamps
 logtimestamps=1
 
-# Log connections
-logconnections=1
 
 # =============================================================================
 # SECURITY NOTES
