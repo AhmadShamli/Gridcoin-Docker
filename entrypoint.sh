@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
 
-CONF_DIR="/root/.GridcoinResearch"
+CONF_DIR="/home/grc/.GridcoinResearch"
 CFG_FILE="$CONF_DIR/gridcoinresearch.conf"
 
-cat /home/grc/.GridcoinResearch/gridcoinresearch.conf > ${CFG_FILE}
+cat /home/grc/.GridcoinResearch/gridcoinresearch.conf > /root/.GridcoinResearch/gridcoinresearch.conf
 
-if [ "$1" = 'gridcoinresearchd' ]; then
+if [[ "$1" == 'gridcoinresearchd' || "$1" == '/usr/bin/gridcoinresearchd' ]]; then
     mkdir -p "$CONF_DIR"
     
     # Check if config file exists, if not create a basic one

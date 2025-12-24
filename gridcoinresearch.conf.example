@@ -27,7 +27,7 @@ daemon=0
 
 # RPC username and password
 # IMPORTANT: Change these credentials for production use!
-rpcuser=your_rpc_username_here
+rpcuser=gridcoinrpc
 rpcpassword=your_secure_rpc_password_here
 
 # RPC port (default: 15715)

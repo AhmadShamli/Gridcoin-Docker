@@ -34,7 +34,8 @@ RUN apt update && apt install -y \
     libcurl4-gnutls-dev \
     libdb5.3++t64 \
     libzip5 \
-    libminiupnpc18
+    libminiupnpc18 \
+    nano
 
 # ... (Rest of your Dockerfile remains the same) ...
 RUN useradd -d /home/grc -U -m grc && \
@@ -63,5 +64,5 @@ RUN if [ -n "$GRIDCOIN_DEB_URL" ]; then \
     fi
 
 
-WORKDIR /root/.GridcoinResearch
-VOLUME ["/root/.GridcoinResearch"]
+WORKDIR /home/grc/.GridcoinResearch
+VOLUME ["/home/grc/.GridcoinResearch"]

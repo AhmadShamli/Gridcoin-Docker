@@ -13,7 +13,7 @@ services:
       - "32749:32749"  # Gridcoin mainnet port
     volumes:
       # Blockchain data directory
-      - ./blockchain:/root/.GridcoinResearch
+      - ./blockchain:/home/grc/.GridcoinResearch
       # Gridcoin configuration file
       - ./gridcoinresearch.conf:/home/grc/.GridcoinResearch/gridcoinresearch.conf:ro
     # Optional: Configure logging
