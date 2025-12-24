@@ -1,6 +1,6 @@
 # Gridcoin Docker - .deb Package Installation
 
-This Docker setup uses pre-built Gridcoin .deb packages instead of building from source, making it faster and simpler to deploy.
+This Docker setup uses pre-built Gridcoin .deb packages instead of building from source, making it faster and simpler to deploy. Build with Debian Trixie Slim.
 
 ## Quick Start
 
@@ -35,11 +35,6 @@ https://github.com/gridcoin-community/Gridcoin-Research/releases
 
 ### Common Package Examples
 
-- **Ubuntu 24.04 (Noble)**: `gridcoinresearchd_5.4.9.0.noble-1_amd64.deb`
-- **Ubuntu 22.04 (Jammy)**: `gridcoinresearchd_5.4.9.0.jammy-1_amd64.deb`  
-- **Ubuntu 20.04 (Focal)**: `gridcoinresearchd_5.4.9.0.focal-1_amd64.deb`
-- **Debian 12 (Bookworm)**: `gridcoinresearchd_5.4.9.0.bookworm-1_amd64.deb`
-- **Debian 11 (Bullseye)**: `gridcoinresearchd_5.4.9.0.bullseye-1_amd64.deb`
 - **Debian 13 (Trixie)**: `gridcoinresearchd_5.4.9.0.trixie-1_amd64.deb`
 
 ## Configuration
