@@ -1,0 +1,99 @@
+# Gridcoin Research Configuration File
+# Copy this file to gridcoinresearch.conf and modify as needed
+
+# =============================================================================
+# BASIC REQUIRED SETTINGS
+# =============================================================================
+
+# Enable listening for incoming connections
+listen=1
+
+# Enable server mode (allows RPC connections)
+server=1
+
+# Run in daemon mode (0 = foreground, 1 = background)
+# Set to 0 for Docker containers to see console output
+daemon=0
+
+# Print output to console (recommended for Docker)
+printtoconsole=1
+
+# =============================================================================
+# RPC CONFIGURATION
+# =============================================================================
+
+# RPC username and password
+# IMPORTANT: Change these credentials for production use!
+rpcuser=your_rpc_username_here
+rpcpassword=your_secure_rpc_password_here
+
+# RPC port (default: 32749)
+rpcport=32749
+
+# Allow RPC connections from localhost only (more secure)
+# rpcallowip=127.0.0.1
+
+# Allow RPC connections from specific IP ranges (less secure)
+# Uncomment and modify as needed:
+# rpcallowip=192.168.1.0/24
+# rpcallowip=10.0.0.0/8
+
+# =============================================================================
+# NETWORK SETTINGS
+# =============================================================================
+
+# Port to listen on (default: 32749)
+port=32749
+
+# Maximum number of connections
+# maxconnections=125
+
+# =============================================================================
+# WALLET SETTINGS (if using wallet functionality)
+# =============================================================================
+
+# Enable wallet functionality (0 = disabled, 1 = enabled)
+# wallet=1
+
+# Transaction fee per kB (optional)
+# paytxfee=0.0001
+
+# =============================================================================
+# ADVANCED SETTINGS (optional)
+# =============================================================================
+
+# Maximum upload/download rates (in kB/s, 0 = unlimited)
+# maxuploadtarget=5000
+
+# Minimum stake age (in seconds, for proof-of-stake)
+# stakeage=3600
+
+# Reserve balance (minimum amount to keep free for transactions)
+# reservebalance=0
+
+# Addnodes (additional nodes to connect to)
+# Add nodes manually if having connection issues:
+# addnode=node.gridcoin.us
+# addnode=node2.gridcoin.us
+
+# Proxy settings (if needed)
+# proxy=127.0.0.1:9050
+
+# =============================================================================
+# LOGGING
+# =============================================================================
+
+# Log timestamps
+logtimestamps=1
+
+# Log connections
+logconnections=1
+
+# =============================================================================
+# SECURITY NOTES
+# =============================================================================
+# 1. Always change the default RPC username and password
+# 2. Use strong, unique passwords
+# 3. Consider restricting RPC access with rpcallowip
+# 4. Keep your config file secure (chmod 600 gridcoinresearch.conf)
+# 5. Regular backups of wallet and config files

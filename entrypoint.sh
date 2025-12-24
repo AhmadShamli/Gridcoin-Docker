@@ -1,36 +1,44 @@
 #!/bin/bash
 set -e
 
-CFG_FILE="/home/grc/.GridcoinResearch/gridcoinresearch.conf"
+CONF_DIR="/home/grc/.GridcoinResearch"
+CFG_FILE="$CONF_DIR/gridcoinresearch.conf"
+ROOT_CFG="/root/.GridcoinResearch/gridcoinresearch.conf"
 
 if [ "$1" = 'gridcoinresearchd' ]; then
-    mkdir -p /home/grc/.GridcoinResearch
+    mkdir -p "$CONF_DIR"
+    
+    # Check if config file exists, if not create a basic one
     if [ ! -f "${CFG_FILE}" ]; then
-        # Use environment variables if set, otherwise fall back to defaults
-        RPC_USER="${GRIDCOIN_RPC_USER:-grc_user}"
-        RPC_PASS="${GRIDCOIN_RPC_PASS:-grc_pass}"
-
-        echo -e "rpcuser=${RPC_USER}" >> "${CFG_FILE}"
-        echo -e "rpcpassword=${RPC_PASS}" >> "${CFG_FILE}"
+        echo "No gridcoinresearch.conf found, creating basic configuration..."
+        echo "# Gridcoin configuration file" > "${CFG_FILE}"
+        echo "listen=1" >> "${CFG_FILE}"
+        echo "server=1" >> "${CFG_FILE}"
+        echo "daemon=0" >> "${CFG_FILE}"
+        echo "printtoconsole=1" >> "${CFG_FILE}"
     fi
-    echo "Setting printtoconsole to true"
-    ! grep -q 'printtoconsole=1' "${CFG_FILE}" && \
-        sed \
-            -e '/^\(printtoconsole=\).*/{s//\11/;:a;n;ba;q}' \
-            -e '$aprinttoconsole=1' \
-            -i "${CFG_FILE}"
-    chmod 0600 "${CFG_FILE}"
-    chown -R grc.grc /home/grc/.GridcoinResearch
 
-    exec gosu grc:grc $@
+    # Copy config to root
+    cp "${CFG_FILE}" "${ROOT_CFG}"
+    # Fix chown syntax warning (use grc:grc) and permissions
+    chmod 0600 "${CFG_FILE}"
+    chown -R grc:grc /home/grc
+
+    # Execute the daemon using the absolute path to fix "not found in $PATH" error
+    exec gosu grc:grc /usr/bin/gridcoinresearchd "$@"
 fi
 
+# The following blocks assume the user runs the container with 'cli' or 'asgrc' ENTRYPOINT override
+
 if [ "$(basename $0)" = 'cli' ]; then
-    exec gosu grc:grc gridcoinresearchd $@
+    # Execute CLI commands as the grc user
+    exec gosu grc:grc /usr/bin/gridcoinresearchd "$@"
 fi
 
 if [ "$(basename $0)" = 'asgrc' ]; then
-    exec gosu grc:grc $@
+    # Execute arbitrary commands as the grc user
+    exec gosu grc:grc "$@"
 fi
 
-exec $@
+# Fallback: execute the command passed to docker run if not one of the above
+exec "$@"

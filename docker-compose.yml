@@ -6,7 +6,7 @@ services:
         # Specify the .deb package URL here
         # Ubuntu 24.04: https://github.com/gridcoin-community/Gridcoin-Research/releases/download/5.4.9.0/gridcoinresearchd_5.4.9.0.noble-1_amd64.deb
         # Debian 13 (Trixie): https://github.com/gridcoin-community/Gridcoin-Research/releases/download/5.4.9.0/gridcoinresearchd_5.4.9.0.trixie-1_amd64.deb
-        GRIDCOIN_DEB_URL: https://github.com/gridcoin-community/Gridcoin-Research/releases/download/5.4.9.0/gridcoinresearchd_5.4.9.0.noble-1_amd64.deb
+        GRIDCOIN_DEB_URL: https://github.com/gridcoin-community/Gridcoin-Research/releases/download/5.4.9.0/gridcoinresearchd_5.4.9.0.trixie-1_amd64.deb
     container_name: gridcoin_node
     restart: unless-stopped
     ports:
@@ -14,6 +14,8 @@ services:
     volumes:
       # Blockchain data directory
       - ./blockchain:/home/grc
+      # Gridcoin configuration file
+      - ./gridcoinresearch.conf:/home/grc/.GridcoinResearch/gridcoinresearch.conf:ro
     environment:
       # Optional: Set custom RPC credentials
       - GRIDCOIN_RPC_USER=grc_user

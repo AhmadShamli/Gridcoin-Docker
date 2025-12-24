@@ -22,6 +22,7 @@ docker build -t gridcoin-deb .
 docker run -d \
   --name gridcoin_node \
   -v /path/to/blockchain/dir:/home/grc \
+  -v /path/to/gridcoinresearch.conf:/home/grc/.GridcoinResearch/gridcoinresearch.conf:ro \
   -v /path/to/boinc/dir:/var/lib/boinc \
   -p 32749:32749 \
   gridcoin-deb
@@ -46,22 +47,43 @@ https://github.com/gridcoin-community/Gridcoin-Research/releases
 ### Data Volumes
 
 - `/home/grc` - Blockchain data directory (contains `.GridcoinResearch` folder)
+- `/home/grc/.GridcoinResearch/gridcoinresearch.conf` - Gridcoin configuration file (mounted read-only)
 
-### Default Configuration
+### Configuration File
 
-The container creates a basic `gridcoinresearch.conf` file if none exists:
-- RPC username: `grc_user`
-- RPC password: `grc_pass`
-- Console output enabled: `printtoconsole=1`
+**Important**: You must provide your own `gridcoinresearch.conf` file. The container will not create one automatically.
 
-**Important**: Change these default credentials for production use!
+Place your `gridcoinresearch.conf` file in the same directory as your `docker-compose.yml` or mount it explicitly:
 
-### Custom Configuration
-
-Place your custom `gridcoinresearch.conf` file in your mounted volume:
+```yaml
+volumes:
+  - ./blockchain:/home/grc
+  - ./gridcoinresearch.conf:/home/grc/.GridcoinResearch/gridcoinresearch.conf:ro
 ```
-/path/to/blockchain/dir/.GridcoinResearch/gridcoinresearch.conf
+
+**Quick Start**: Copy the included example config:
+```bash
+cp gridcoinresearch.conf.example gridcoinresearch.conf
+# Edit gridcoinresearch.conf and change the default RPC credentials
 ```
+
+### Required Configuration Settings
+
+Your `gridcoinresearch.conf` should include:
+
+```ini
+# Basic required settings
+listen=1
+server=1
+daemon=0
+printtoconsole=1
+
+# RPC settings (change credentials for production)
+rpcuser=your_rpc_username
+rpcpassword=your_secure_rpc_password
+```
+
+**Security Note**: Always use strong, unique RPC credentials for production use!
 
 ## Using the CLI
 
@@ -108,6 +130,7 @@ services:
       - "32749:32749"
     volumes:
       - ./blockchain:/home/grc
+      - ./gridcoinresearch.conf:/home/grc/.GridcoinResearch/gridcoinresearch.conf:ro
     environment:
       - GRPC_MULTIPLEX_TIMEOUT=10
 ```
@@ -143,10 +166,11 @@ sudo ufw status verbose
 ```
 ## Security Notes
 
-1. **Change default RPC credentials** in your config file
-2. **Use strong passwords** for wallet encryption
+1. **Provide your own RPC credentials** in your config file
+2. **Use strong passwords** for both RPC and wallet encryption
 3. **Keep the container updated** with latest .deb packages
 4. **Monitor logs** for suspicious activity
+5. **Mount config file as read-only** (`:ro` flag) to prevent accidental modifications
 
 ## Support
 
