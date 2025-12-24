@@ -20,7 +20,7 @@ docker build -t gridcoin-deb .
 
 ```bash
 docker run -d \
-  --name gridcoin_cont \
+  --name gridcoin_node \
   -v /path/to/blockchain/dir:/home/grc \
   -v /path/to/boinc/dir:/var/lib/boinc \
   -p 32749:32749 \
@@ -39,6 +39,7 @@ https://github.com/gridcoin-community/Gridcoin-Research/releases
 - **Ubuntu 20.04 (Focal)**: `gridcoinresearchd_5.4.9.0.focal-1_amd64.deb`
 - **Debian 12 (Bookworm)**: `gridcoinresearchd_5.4.9.0.bookworm-1_amd64.deb`
 - **Debian 11 (Bullseye)**: `gridcoinresearchd_5.4.9.0.bullseye-1_amd64.deb`
+- **Debian 13 (Trixie)**: `gridcoinresearchd_5.4.9.0.trixie-1_amd64.deb`
 
 ## Configuration
 
@@ -67,19 +68,19 @@ Place your custom `gridcoinresearch.conf` file in your mounted volume:
 ### Interactive Commands
 ```bash
 # Get help
-docker exec -it gridcoin_cont cli help
+docker exec -it gridcoin_node cli help
 
 # Check mining info
-docker exec -it gridcoin_cont cli getmininginfo
+docker exec -it gridcoin_node cli getmininginfo
 
 # Get wallet info
-docker exec -it gridcoin_cont cli getwalletinfo
+docker exec -it gridcoin_node cli getwalletinfo
 ```
 
 ### Using Alias (Recommended)
 Add to your `.bashrc` or `.zshrc`:
 ```bash
-alias grccli='docker exec -it gridcoin_cont cli'
+alias grccli='docker exec -it gridcoin_node cli'
 ```
 
 Then use: `grccli getmininginfo`
@@ -87,7 +88,7 @@ Then use: `grccli getmininginfo`
 ### Execute Commands as Gridcoin User
 ```bash
 # Run commands as the grc user
-docker exec -it gridcoin_cont asgrc ls -la /home/grc
+docker exec -it gridcoin_node asgrc ls -la /home/grc
 ```
 
 ## Docker Compose Example
@@ -122,12 +123,12 @@ services:
 ## Troubleshooting
 
 ### Container Exits Immediately
-Check logs: `docker logs gridcoin_cont`
+Check logs: `docker logs gridcoin_node`
 
 ### Permission Issues
 The entrypoint automatically sets correct permissions, but verify:
 ```bash
-docker exec -it gridcoin_cont asgrc ls -la /home/grc
+docker exec -it gridcoin_node asgrc ls -la /home/grc
 ```
 
 ### Network Issues

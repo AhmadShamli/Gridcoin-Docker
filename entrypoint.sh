@@ -6,8 +6,12 @@ CFG_FILE="/home/grc/.GridcoinResearch/gridcoinresearch.conf"
 if [ "$1" = 'gridcoinresearchd' ]; then
     mkdir -p /home/grc/.GridcoinResearch
     if [ ! -f "${CFG_FILE}" ]; then
-        echo -e 'rpcuser=grc_user' >> "${CFG_FILE}"
-        echo -e 'rpcpassword=grc_pass' >> "${CFG_FILE}"
+        # Use environment variables if set, otherwise fall back to defaults
+        RPC_USER="${GRIDCOIN_RPC_USER:-grc_user}"
+        RPC_PASS="${GRIDCOIN_RPC_PASS:-grc_pass}"
+
+        echo -e "rpcuser=${RPC_USER}" >> "${CFG_FILE}"
+        echo -e "rpcpassword=${RPC_PASS}" >> "${CFG_FILE}"
     fi
     echo "Setting printtoconsole to true"
     ! grep -q 'printtoconsole=1' "${CFG_FILE}" && \
