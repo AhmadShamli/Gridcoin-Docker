@@ -1,0 +1,11 @@
+# Docker ignore file for Gridcoin .deb Docker
+.git
+.gitignore
+README.md
+*.deb
+*.md
+scripts/
+.DS_Store
+*.log
+node_modules/
+npm-debug.log

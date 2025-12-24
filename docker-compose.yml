@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  gridcoin:
+    build:
+      context: .
+      args:
+        # Specify the .deb package URL here
+        GRIDCOIN_DEB_URL: https://github.com/gridcoin-community/Gridcoin-Research/releases/download/5.4.9.0/gridcoinresearchd_5.4.9.0.noble-1_amd64.deb
+    container_name: gridcoin_node
+    restart: unless-stopped
+    ports:
+      - "32749:32749"  # Gridcoin mainnet port
+    volumes:
+      # Blockchain data directory
+      - ./blockchain:/home/grc
+    environment:
+      # Optional: Set custom RPC credentials
+      - GRIDCOIN_RPC_USER=grc_user
+      - GRIDCOIN_RPC_PASS=grc_pass
+    # Uncomment to allocate a pseudo-TTY and keep container running
+    # stdin_open: true
+    # tty: true
